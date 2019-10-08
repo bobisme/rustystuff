@@ -1,4 +1,3 @@
-use std::sync::Mutex;
 use std::sync::Arc;
 
 use actix_web::{web, App, HttpServer, Responder};
@@ -8,7 +7,8 @@ extern crate slog_async;
 extern crate slog_json;
 use slog::Drain;
 
-#[derive(Clone)]
+mod logging;
+
 struct AppData {
     log: slog::Logger,
 }
@@ -34,6 +34,7 @@ fn main() -> std::io::Result<()> {
         move ||
         App::new()
         .data(AppData::new(root.clone()))
+        .wrap(logging::Slogger::new(root.clone()))
         .service(web::resource("/{id}/{name}").to(index))
     )
         .bind("127.0.0.1:8080")?
