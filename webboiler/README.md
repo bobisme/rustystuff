@@ -1,6 +1,6 @@
 LOOKING FOR:
-* [ ] parse JSON request body
-* [ ] return JSON response body
+* [X] parse JSON request body
+* [X] return JSON response body
 * [X] JSON request logging
 * [X] JSON logger passed through contexts
 
